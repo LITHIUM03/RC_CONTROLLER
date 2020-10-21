@@ -25,7 +25,7 @@ void loop(void)
 {
   while (radio.available())
   {
-    Serial.print("kkkkk");
+    Serial.print("kkkk!k");
     radio.read(ReceivedMessage, 1); // Read information from the NRF24L01
 
     if (ReceivedMessage[0] == 111) // Indicates switch is pressed
