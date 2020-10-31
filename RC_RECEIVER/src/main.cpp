@@ -12,6 +12,8 @@ const uint64_t pipe = 0xE6E6E6E6E6E6; // Needs to be the same for communicating 
 
 void setup(void)
 {
+  Serial.begin(9600);
+
   radio.begin(); // Start the NRF24L01
   
   radio.openReadingPipe(1,pipe); // Get NRF24L01 ready to receive
@@ -23,6 +25,8 @@ void setup(void)
 
 void loop(void)
 {
+         Serial.print("LOOPING \n");
+
   while (radio.available())
   {
     Serial.print("kkkk!k");
@@ -36,7 +40,8 @@ void loop(void)
     {
        digitalWrite(LED_PIN, LOW);
     }
-    delay(2);
+    delay(20);
+
    }
 }
 // #include<SPI.h>

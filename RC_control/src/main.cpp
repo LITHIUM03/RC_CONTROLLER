@@ -14,7 +14,7 @@ void setup()
 {
   pinMode(SwitchPin, INPUT_PULLUP); 
   digitalWrite(SwitchPin,HIGH); 
-  
+  pinMode(4,OUTPUT);
   radio.begin(); // Start the NRF24L01
   radio.openWritingPipe(pipe); // Get NRF24L01 ready to transmit
 }
@@ -24,12 +24,16 @@ void loop()
   if (digitalRead(SwitchPin) == LOW)    // If switch is pressed
   { 
       SentMessage[0] = 111;
-      radio.write(SentMessage, 1);      // Send pressed data to NRF24L01
+      radio.write(SentMessage, 1);  
+        digitalWrite(4,HIGH); 
+    // Send pressed data to NRF24L01
   }
   else 
   {
       SentMessage[0] = 000;
-      radio.write(SentMessage, 1);      // Send idle data to NRF24L01
+      radio.write(SentMessage, 1);     
+        digitalWrite(4,LOW); 
+ // Send idle data to NRF24L01
   }
 }
 // #include<SPI.h>
