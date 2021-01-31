@@ -1,24 +1,43 @@
 /*~~~~~~~CONSTANTS~~~~~~~~*/
-#define OFF 0x0
-#define ON 0x1
-#define FORWARD 0x11
-#define REVERSE 0X00
+//#define OFF 0x0
+//#define ON 0x1
+//#define FORWARD 0x11
+//#define REVERSE 0X00
+
 #define SPEED_QUANTUM 11
 #define MINIMAL_PWM_SPEED 0
+#define MAXIMAL_PWM_SPEED 255
 #define MAX_REVERSE_SPEED 150
+
+typedef enum{LEFT, RIGHT} SteeringDirection;
+typedef enum{FORWARD, REVERSE} TravelDirection;
+typedef enum{CW, CCW} MotorSpinDirection;
+typedef enum{ON, OFF} OnOrOff;
+typedef uint8_t Speed;
 
 /*~~~~~~~DATA OBJECT~~~~~~*/
 class data_package
 {
 private:
 public:
-  byte base_speed;
+  Speed base_speed;
   int8_t steering;
-  byte headlights;
-  byte d_r;
+  OnOrOff headlights;
+  TravelDirection d_r;
  
   data_package() : base_speed(0),steering(0),headlights(OFF),d_r(FORWARD){}
   ~data_package(){};
+  
+  void printHeadlights() const{
+    if(ON==headlights) Serial.print("ON");
+    else Serial.print("OFF");
+  }
+
+    void print_d_r() const{
+    if(FORWARD==d_r) Serial.print("FORWARD");
+    else Serial.print("REVERSE");
+  }
+
   void print() const{
     Serial.print("base_speed: ");
     Serial.print(base_speed);
@@ -27,11 +46,10 @@ public:
     Serial.print(steering);
     Serial.print(" | ");
     Serial.print("headlights: ");
-    Serial.print(headlights);
+    printHeadlights();
     Serial.print(" | ");
     Serial.print("d_r: ");
-    if(FORWARD==d_r) Serial.print("FORWARD");
-    else Serial.print("REVERSE");
+    print_d_r();
     Serial.print(" | \n");
   }
 };

@@ -43,12 +43,16 @@ void loop(){
 current_millis = millis();
 int current_throttle=analogRead(THROTTLE_PIN);
 current_data.base_speed = myMap(current_throttle,MIN_THROTTLE,MAX_THROTTLE);
-current_data.steering = map(analogRead(STEERING_PIN),70,980,-15,15); //TODO
+current_data.steering = map(analogRead(STEERING_PIN),41,951,-15,15); //TODO
 current_data.headlights = (HIGH == digitalRead(HEADLIGHTS_PIN) ? ON : OFF) ;
 current_data.d_r = (analogRead(THROTTLE_PIN)>=(MIN_THROTTLE+MAX_THROTTLE)/2 ? FORWARD : REVERSE) ;
 radio.write(&current_data, sizeof(current_data));
 current_data.print();
+Serial.print("THROTTLE_PIN: ");
 Serial.print(analogRead(THROTTLE_PIN));
+Serial.print(" | ");
+Serial.print("STEERING_PIN: ");
+Serial.print(analogRead(STEERING_PIN));
 Serial.print(" | ");
 delay(1);
 }
